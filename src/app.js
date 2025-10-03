@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', getPosts);
 // Listen for add post
 document.querySelector('.post-submit').addEventListener('click', submitPost);
 
-
+// Listen for add post
+document.querySelector('.post-submit').addEventListener('click', submitPost);
 
  function getposts(){
     http.get('http:// localhosts:3000/posts')
@@ -33,4 +34,11 @@ function submitPost() {
       getPosts();
     })
     .catch(err => console.log(err));
+}
+
+// Delete Posts
+function  deletepost(e)
+{
+  e.preventDefault();
+  console.log('delete');
 }
