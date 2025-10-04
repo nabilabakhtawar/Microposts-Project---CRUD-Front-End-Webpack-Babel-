@@ -1,72 +1,65 @@
-class UI {
-  constructor() {
-    this.post = document.querySelector('#posts');
-    this.titleInput = document.querySelector('#title');
-    this.bodyInput = document.querySelector('#body');
-    this.idInput = document.querySelector('#id');
-    this.postSubmit = document.querySelector('.post-submit');
-    this.forState = 'add';
+/**
+ * EasyHTTP Library
+ * Library for making HTTP requests
+ *
+ * @version 3.0.0
+ * @author  Brad Traversy
+ * @license MIT
+ *
+ **/
+
+class EasyHTTP {
+  // Make an HTTP GET Request 
+  async get(url) {
+    const response = await fetch(url);
+    const resData = await response.json();
+    return resData;
   }
 
-  showPosts(posts) {
-    let output = '';
-
-    posts.forEach((post) => {
-      output += `
-        <div class="card mb-3">
-          <div class="card-body">
-            <h4 class="card-title">${post.title}</h4>
-            <p class="card-text">${post.body}</p>
-            <a href="#" class="edit card-link" data-id="${post.id}">
-              <i class="fa fa-pencil"></i>
-            </a>
-
-            <a href="#" class="delete card-link" data-id="${post.id}">
-            <i class="fa fa-remove"></i>
-          </a>
-          </div>
-        </div>
-      `;
+  // Make an HTTP POST Request
+  async post(url, data) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
 
-    this.post.innerHTML = output;
+    const resData = await response.json();
+    return resData;
+   
   }
 
-
-showAlert(message, className) {
-    this.clearAlert();
-
-    // Create div
-    const div = document.createElement('div');
-    // Add classes
-    div.className = className;
-    // Add text
-    div.appendChild(document.createTextNode(message));
-    // Get parent
-    const container = document.querySelector('.postsContainer');
-    // Get posts
-    const posts = document.querySelector('#posts');
-    // Insert alert div
-    container.insertBefore(div, posts);
-
-    // Timeout
-    setTimeout(() => {
-      this.clearAlert();
-    }, 3000);
+   // Make an HTTP PUT Request
+   async put(url, data) {
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    
+    const resData = await response.json();
+    return resData;
   }
 
-  clearAlert() {
-    const currentAlert = document.querySelector('.alert');
+  // Make an HTTP DELETE Request
+  async delete(url) {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
 
-    if(currentAlert) {
-      currentAlert.remove();
-    }
+    const resData = await 'Resource Deleted...';
+    return resData;
   }
 
-  clearFields() {
-    this.titleInput.value = '';
-    this.bodyInput.value = '';
-  }
-}
+ }
 
-export const ui = new UI();
+ export const http = new EasyHTTP();
+
+ 
